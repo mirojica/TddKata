@@ -1,0 +1,13 @@
+# Rider project files
+.idea/
+
+# Visual Studio project files
+.vs/
+*.user
+
+# Build artifacts
+bin/
+obj/
+
+# NuGet packages
+packages/

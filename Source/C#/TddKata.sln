@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddKata.Basic.StringCalculatorKata", "TddKata.Basic.StringCalculator\TddKata.Basic.StringCalculatorKata.csproj", "{5F52D75E-6570-4EBB-B693-DD987E78D2DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddKata.Basic.StringCalculatorWithColaboratorsKata", "TddKata.Basic.StringCalculatorLoggerKata\TddKata.Basic.StringCalculatorWithColaboratorsKata.csproj", "{FC13E36A-7F5E-4A18-87FD-ADCF39D6E4DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddKata.Basic.PasswordVerifierKata", "TddKata.Basic.PasswordVerifierKata\TddKata.Basic.PasswordVerifierKata.csproj", "{0855C3FA-6F4C-4A60-9EA8-A0F352DDB543}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddKata.Basic.BowlingGameKata", "TddKata.Basic.BowlingGameKata\TddKata.Basic.BowlingGameKata.csproj", "{923FFC59-FDEA-490A-BCE8-9B8D57FA9475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TddKata.Basic.TicTacToeKata", "TddKata.Basic.TicTacToeKata\TddKata.Basic.TicTacToeKata.csproj", "{354DB0CE-35EB-4964-9EC6-3DA7D0DAAD77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F52D75E-6570-4EBB-B693-DD987E78D2DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F52D75E-6570-4EBB-B693-DD987E78D2DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F52D75E-6570-4EBB-B693-DD987E78D2DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F52D75E-6570-4EBB-B693-DD987E78D2DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC13E36A-7F5E-4A18-87FD-ADCF39D6E4DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC13E36A-7F5E-4A18-87FD-ADCF39D6E4DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC13E36A-7F5E-4A18-87FD-ADCF39D6E4DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC13E36A-7F5E-4A18-87FD-ADCF39D6E4DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0855C3FA-6F4C-4A60-9EA8-A0F352DDB543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0855C3FA-6F4C-4A60-9EA8-A0F352DDB543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0855C3FA-6F4C-4A60-9EA8-A0F352DDB543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0855C3FA-6F4C-4A60-9EA8-A0F352DDB543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{923FFC59-FDEA-490A-BCE8-9B8D57FA9475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{923FFC59-FDEA-490A-BCE8-9B8D57FA9475}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{923FFC59-FDEA-490A-BCE8-9B8D57FA9475}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{923FFC59-FDEA-490A-BCE8-9B8D57FA9475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{354DB0CE-35EB-4964-9EC6-3DA7D0DAAD77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{354DB0CE-35EB-4964-9EC6-3DA7D0DAAD77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{354DB0CE-35EB-4964-9EC6-3DA7D0DAAD77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{354DB0CE-35EB-4964-9EC6-3DA7D0DAAD77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9827A59E-B45B-4675-9B61-BE920949FDCD}
+	EndGlobalSection
+EndGlobal

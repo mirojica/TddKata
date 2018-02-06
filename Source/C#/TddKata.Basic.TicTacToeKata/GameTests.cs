@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -11,8 +9,7 @@ namespace TddKata.Basic.TicTacToeKata
         [Fact]
         public void ExceptionShouldBeThrown_WhenSamePlayerTakeMoreThanOneConsecutiveMoves()
         {
-            var game = new Game();
-            game.Move("X", 1);
+            var game = AGame.WithFilledPosition(1, "X");
 
             Action action = () => game.Move("X", 2);
 
@@ -47,8 +44,7 @@ namespace TddKata.Basic.TicTacToeKata
         [InlineData("O")]
         public void ExceptionShouldBeThrown_WhenPlayerMakeMoveToFilledPosition(string activePlayer)
         {
-            var game = new Game();
-            game.Move("X", 2);
+            var game = AGame.WithFilledPosition(2, "X");
 
             Action action = () => game.Move(activePlayer, 2);
 
@@ -65,7 +61,7 @@ namespace TddKata.Basic.TicTacToeKata
                                                                             string expectedWinner, 
                                                                             params int[] horisontalWinPositions)
         {
-            var game = GameWinForPlayer(winnerPlayer, horisontalWinPositions);
+            var game = AGame.WithWinnerPlayer(winnerPlayer, horisontalWinPositions);
 
             var winner = game.Outcome();
 
@@ -83,7 +79,7 @@ namespace TddKata.Basic.TicTacToeKata
                                                                             string expectedWinner,
                                                                             params int[] verticalWinPositions)
         {
-            var game = GameWinForPlayer(winnerPlayer, verticalWinPositions);
+            var game = AGame.WithWinnerPlayer(winnerPlayer, verticalWinPositions);
 
             var winner = game.Outcome();
 
@@ -99,7 +95,7 @@ namespace TddKata.Basic.TicTacToeKata
                                                                             string expectedWinner,
                                                                             params int[] diagonalWinPositions)
         {
-            var game = GameWinForPlayer(winnerPlayer, diagonalWinPositions);
+            var game = AGame.WithWinnerPlayer(winnerPlayer, diagonalWinPositions);
 
             var winner = game.Outcome();
 
@@ -109,7 +105,7 @@ namespace TddKata.Basic.TicTacToeKata
         [Fact]
         public void GameIsFinishedWithoutWinner_WhenAllPositionsAreTakenAndNoPlayerHasTakenWinLinePositions()
         {
-            var game = GameWithoutWinner();
+            var game = AGame.WithoutWinner();
 
             var result = game.Outcome();
 
@@ -119,59 +115,13 @@ namespace TddKata.Basic.TicTacToeKata
         [Fact]
         public void AskForNextMove_WhenGameIsNotFinished()
         {
-            var game = GameWhichIsNotFinished();
+            var game = AGame.WhichIsNotFinished();
 
             var result = game.Outcome();
 
             result.Should().Be("next");
         }
 
-        private static Game GameWhichIsNotFinished()
-        {
-            var game = new Game();
-            game.Move("X", 1);
-            game.Move("O", 2);
-            game.Move("X", 3);
-            game.Move("O", 4);
-            game.Move("X", 6);
-            game.Move("O", 7);
-            return game;
-        }
-
-        private static Game GameWithoutWinner()
-        {
-            var game = new Game();
-            game.Move("X", 1);
-            game.Move("O", 2);
-            game.Move("X", 3);
-            game.Move("O", 4);
-            game.Move("X", 6);
-            game.Move("O", 7);
-            game.Move("X", 8);
-            game.Move("O", 9);
-            game.Move("X", 5);
-            return game;
-        }
-
-        private static Game GameWinForPlayer(string winner, int[] verticalWinPositions)
-        {
-            var allPositions = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            var looserPositions = allPositions.Where(position => !verticalWinPositions.Contains(position)).ToList();
-
-            var looser = GetLooserBasedOn(winner);
-
-            var game = new Game();
-            game.Move(winner, verticalWinPositions[0]);
-            game.Move(looser, looserPositions.First());
-            game.Move(winner, verticalWinPositions[1]);
-            game.Move(looser, looserPositions.Last());
-            game.Move(winner, verticalWinPositions[2]);
-            return game;
-        }
-
-        private static string GetLooserBasedOn(string winner)
-        {
-            return winner.Equals("X") ? "O" : "X";
-        }
+        private static GameFactory AGame => new GameFactory();
     }
 }

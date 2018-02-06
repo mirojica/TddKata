@@ -12,11 +12,11 @@ namespace TddKata.Basic.TicTacToeKata
 
         public void Move(string player, int position)
         {
-            if (IsNotValidPlayer(player) || SameAsPrevious(player))
+            if (IsNotValid(player) || SameAsPrevious(player))
             {
                 throw new ArgumentException();
             }
-            if (_board.IsValidPosition(position))
+            if (_board.IsValid(position))
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -34,7 +34,7 @@ namespace TddKata.Basic.TicTacToeKata
             return _board.Outcom();
         }
 
-        private bool IsNotValidPlayer(string player)
+        private bool IsNotValid(string player)
         {
             return !_validPlayers.Contains(player);
         }

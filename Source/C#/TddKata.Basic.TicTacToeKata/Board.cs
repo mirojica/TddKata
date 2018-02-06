@@ -40,7 +40,7 @@ namespace TddKata.Basic.TicTacToeKata
             return IsFull() ? "egal" : "next";
         }
 
-        public bool IsValidPosition(int position)
+        public bool IsValid(int position)
         {
             return position > 9 || position < 1;
         }

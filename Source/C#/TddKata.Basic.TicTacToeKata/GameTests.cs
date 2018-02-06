@@ -16,7 +16,7 @@ namespace TddKata.Basic.TicTacToeKata
 
             Action action = () => game.Move("X", 2);
 
-            action.ShouldThrow<InvalidOperationException>();
+            action.ShouldThrow<ArgumentException>();
         }
 
         [Fact]
@@ -45,7 +45,6 @@ namespace TddKata.Basic.TicTacToeKata
 
         [Theory]
         [InlineData("O")]
-        [InlineData("X")]
         public void ExceptionShouldBeThrown_WhenPlayerMakeMoveToFilledPosition(string activePlayer)
         {
             var game = new Game();

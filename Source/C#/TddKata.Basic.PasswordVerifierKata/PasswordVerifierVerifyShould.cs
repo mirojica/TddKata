@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentAssertions;
 using Xunit;
 
@@ -12,7 +10,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         [InlineData("aaaaaaaa")]
         [InlineData("1111111a")]
         [InlineData("AAAAAAAa")]
-        public void ThrowException_WhenPasswordIsNotLongerThanEightAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichIsNotLongerThanEightCharactersAndOneMoreFailingCondition)
+        public void ThrowException_WhenPasswordIsNotLongerThanMinimumLenghtAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichIsNotLongerThanEightCharactersAndOneMoreFailingCondition)
         {
             var passwordVerifier = new PasswordVerifier();
 
@@ -35,7 +33,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         [InlineData("aaaaaaaa")]
         [InlineData("aaaaaaa1")]
         [InlineData("111111a")]
-        public void ThrowsException_WhenPasswordDoesntHaveAtLeastOneUppercaseLetterAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichDoesntContainsUpercaseCharacterAndOneMoreFailingCondition)
+        public void ThrowsException_WhenPasswordDoesntSatisfiedUppercaseLetterConditionAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichDoesntContainsUpercaseCharacterAndOneMoreFailingCondition)
         {
             var passwordVerifier = new PasswordVerifier();
 
@@ -48,7 +46,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         [InlineData("AAAAAAAA")]
         [InlineData("AAAAAAAAAA")]
         [InlineData("111111111")]
-        public void ThrowsException_WhenPasswordDoesntHaveAtLeastOneLowercase(string passwordWhichDoesntContainsLowercaseCharacter)
+        public void ThrowsException_WhenPasswordDoesntSatisfiedLowercaseCondition(string passwordWhichDoesntContainsLowercaseCharacter)
         {
             var passwordVerifier = new PasswordVerifier();
 
@@ -61,7 +59,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         [InlineData("aaaaaaaaa")]
         [InlineData("aaaaaaa")]
         [InlineData("aaaaAAAA")]
-        public void ThrowsException_WhenPasswordDoesntHaveAtLeastOneNumberAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichDoesntContainsNumberAndOneMoreFailingCondition)
+        public void ThrowsException_WhenPasswordDoesntSatisfiedNumberConditionAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichDoesntContainsNumberAndOneMoreFailingCondition)
         {
             var passwordVerifier = new PasswordVerifier();
 
@@ -78,44 +76,6 @@ namespace TddKata.Basic.PasswordVerifierKata
             Action action = () => passwordVerifier.Verify("EEEeee11");
 
             action.ShouldNotThrow<Exception>();
-        }
-    }
-
-    public class PasswordVerifier
-    {
-        public void Verify(string password)
-        {
-            var errorMessages = new List<string>();
-
-            if (string.IsNullOrEmpty(password))
-            {
-                throw new Exception("Password can't be null.");
-            }
-
-            if (password.Equals(password.ToUpper()))
-            {
-                throw new Exception("Password must have at least 1 lowercase letter.");
-            }
-
-            if (password.Length < 9)
-            {
-                errorMessages.Add("Password must be longer than 8 characters.");
-            }
-
-            if (password.Equals(password.ToLower()))
-            {
-                errorMessages.Add("Password must have at least 1 uppercase letter.");
-            }
-
-            if (!password.Any(char.IsDigit))
-            {
-                errorMessages.Add("Password must have at least 1 number.");
-            }
-
-            if (errorMessages.Count > 1)
-            {
-                throw new Exception(string.Join(" ", errorMessages));
-            }
         }
     }
 }

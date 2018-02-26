@@ -10,7 +10,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         [InlineData("aaaaaaaa")]
         [InlineData("1111111a")]
         [InlineData("AAAAAAAa")]
-        public void ThrowException_WhenPasswordIsNotLongerThanMinimumLenghtAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichIsNotLongerThanEightCharactersAndOneMoreFailingCondition)
+        public void ThrowException_WhenMinimumConditionsAreNotSatisfiedAndOneOfThemIsPasswordMinimumLenght(string passwordWhichIsNotLongerThanEightCharactersAndOneMoreFailingCondition)
         {
             var passwordVerifier = new PasswordVerifier();
 
@@ -33,7 +33,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         [InlineData("aaaaaaaa")]
         [InlineData("aaaaaaa1")]
         [InlineData("111111a")]
-        public void ThrowsException_WhenPasswordDoesntSatisfiedUppercaseLetterConditionAndAtLeastOneMoreConditionIsNotSatisfied(string passwordWhichDoesntContainsUpercaseCharacterAndOneMoreFailingCondition)
+        public void ThrowException_WhenMinimumConditionsAreNotSatisfiedAndOneOfThemIsUppercaseLetterCondition(string passwordWhichDoesntContainsUpercaseCharacterAndOneMoreFailingCondition)
         {
             var passwordVerifier = new PasswordVerifier();
 
@@ -69,7 +69,7 @@ namespace TddKata.Basic.PasswordVerifierKata
         }
 
         [Fact]
-        public void VerifyThatPasswordIsCorrect_WhenAtLeastThreeConditionsAreTrue()
+        public void VerifyThatPasswordIsCorrect_WhenAtLeastThreeOptionalConditionsAreTrue()
         {
             var passwordVerifier = new PasswordVerifier();
 

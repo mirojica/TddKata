@@ -8,7 +8,7 @@ namespace TddKata.Basic.ChristmasLightsKata
     public class ChristamLightGridTests
     {
         [Fact]
-        public void TheLightsAllStartTurnedOff()
+        public void TheLightsAllStartsTurnedOff()
         {
             var christmasLightGrid = new ChristmasLightsGrid();
 
@@ -18,7 +18,7 @@ namespace TddKata.Basic.ChristmasLightsKata
         }
 
         [Fact]
-        public void ToggleShouldTurnOnAllOffLightsAndAllTurnOffAllOnLights()
+        public void ToggleShouldTurnOnAllOffLightsAndTurnOffAllOnLights()
         {
             var christmasLightsGrid = new ChristmasLightsGrid();
 

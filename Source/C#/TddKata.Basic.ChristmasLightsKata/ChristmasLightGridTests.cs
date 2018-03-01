@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Xunit;
 
 namespace TddKata.Basic.ChristmasLightsKata
 {
-    public class ChristamLightGridTests
+    public class ChristmasLightGridTests
     {
         [Fact]
         public void TheLightsAllStartsTurnedOff()
@@ -18,7 +19,7 @@ namespace TddKata.Basic.ChristmasLightsKata
         }
 
         [Fact]
-        public void ToggleShouldTurnOnAllOffLightsAndTurnOffAllOnLights()
+        public void ToggleShouldTurnOnAllLights_WhenAllLightsAreOff()
         {
             var christmasLightsGrid = new ChristmasLightsGrid();
 
@@ -26,6 +27,26 @@ namespace TddKata.Basic.ChristmasLightsKata
 
             var actualLightsOnNumber = christmasLightsGrid.NumberOfLightsOn;
             actualLightsOnNumber.Should().Be(1000000);
+        }
+
+        [Fact]
+        public void CordinatesShouldNotBeLowerThanMinimum()
+        {
+            var christmasLightsGrid = new ChristmasLightsGrid();
+
+            Action action = () => christmasLightsGrid.TurnOn(-1, 0, 5, 6);
+
+            action.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void CoordinatesShouldNotBeHigherThanMaximum()
+        {
+            var christmasLightsGrid = new ChristmasLightsGrid();
+
+            Action action = () => christmasLightsGrid.TurnOn(1000, 55, 88, 99);
+
+            action.Should().Throw<ArgumentException>();
         }
 
         [Theory]
@@ -45,7 +66,7 @@ namespace TddKata.Basic.ChristmasLightsKata
         }
 
         [Fact]
-        public void TurnOnShouldTurnOnLightsOnProvidedCordinates_WhenThereIsAlreadyTurnedOnLights()
+        public void TurnOnShouldTurnOnLightsOnProvidedCordinates_WhenThereIsAlreadyTurnedOnLightsAndAreNotIntersected()
         {
             var christmasLightGrid = new ChristmasLightsGrid();
             christmasLightGrid.TurnOn(0, 0, 2, 2);
@@ -57,7 +78,7 @@ namespace TddKata.Basic.ChristmasLightsKata
         }
 
         [Fact]
-        public void TurnOnShouldTurnOnLightsWhichAreNotAlreadyTurnedOn()
+        public void TurnOnShouldTurnOnLightsOnProvidedCordinates_WhenThereIsAlreadyTurnedOnLightsAndAreIntersected()
         {
             var christmasLightGrid = new ChristmasLightsGrid();
             christmasLightGrid.TurnOn(7, 14, 3, 12);
@@ -77,6 +98,11 @@ namespace TddKata.Basic.ChristmasLightsKata
 
         public void TurnOn(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
         {
+            if (!Enumerable.Range(0, 1000).Contains(xCordinate1) || !Enumerable.Range(0, 1000).Contains(xCordinate2) || !Enumerable.Range(0, 1000).Contains(yCordinate1) || !Enumerable.Range(0, 1000).Contains(yCordinate2))
+            {
+                throw new ArgumentException();
+            }
+
             var startingXCordinate = Math.Min(xCordinate2, xCordinate1);
             var endingXCordinate = Math.Max(xCordinate2, xCordinate1);
 

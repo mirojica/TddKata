@@ -18,6 +18,35 @@ namespace TddKata.Basic.ChristmasLightsKata
             }
 
             var startingXCordinate = Math.Min(xCordinate2, xCordinate1);
+            var endingXCordinate = Math.Max(xCordinate2, xCordinate1) + 1;
+
+            var startingYCordinate = Math.Min(yCordinate2, yCordinate1);
+            var endingYCordinate = Math.Max(yCordinate2, yCordinate1) + 1;
+
+            for (var i = startingXCordinate; i < endingXCordinate; i++)
+            {
+                for (var j = startingYCordinate; j < endingYCordinate; j++)
+                {
+                    var light = new ChristamLight(i, j);
+
+                    if (!_lightsOn.Contains(light))
+                    {
+                        _lightsOn.Add(light);
+                    }
+                }
+            }
+
+            NumberOfLightsOn = _lightsOn.Count;
+        }
+
+        public void TurnOff(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
+        {
+            if (CordinatesAreNotInRange(xCordinate1, yCordinate1, xCordinate2, yCordinate2))
+            {
+                throw new ArgumentException();
+            }
+
+            var startingXCordinate = Math.Min(xCordinate2, xCordinate1);
             var endingXCordinate = Math.Max(xCordinate2, xCordinate1);
 
             var startingYCordinate = Math.Min(yCordinate2, yCordinate1);
@@ -29,9 +58,9 @@ namespace TddKata.Basic.ChristmasLightsKata
                 {
                     var light = new ChristamLight(i, j);
 
-                    if (!_lightsOn.Contains(light))
+                    if (_lightsOn.Contains(light))
                     {
-                        _lightsOn.Add(light);
+                        _lightsOn.Remove(light);
                     }
                 }
             }

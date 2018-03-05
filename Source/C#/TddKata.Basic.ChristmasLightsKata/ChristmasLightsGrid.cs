@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace TddKata.Basic.ChristmasLightsKata
 {
     public class ChristmasLightsGrid
     {
-        private readonly List<ChristamLight> _lights = new List<ChristamLight>(1000000);
+        private readonly IDictionary<int, IList<ChristmasLight>> _christmasLightsMap;
 
-        public int NumberOfLightsOn => _lights.Count(light => light.On);
+        public int NumberOfLightsOn => _christmasLightsMap.Values.SelectMany(light => light).Count(light => light.On);
 
         public ChristmasLightsGrid()
         {
-            var coordinates = ExctractCoordinates(0, 0, 999, 999);
+            _christmasLightsMap = new Dictionary<int, IList<ChristmasLight>>();
+            var coordinateMap = ExctractCoordinates(0, 0, 999, 999);
 
-            foreach (var coordinate in coordinates)
+            foreach (var rowCoordinates in coordinateMap)
             {
-                _lights.Add(new ChristamLight(coordinate));
+                var christmasLights = rowCoordinates.Value.Select(coordinate => new ChristmasLight(coordinate)).ToList();
+                _christmasLightsMap.Add(rowCoordinates.Key, christmasLights);
             }
         }
 
@@ -28,15 +29,13 @@ namespace TddKata.Basic.ChristmasLightsKata
                 throw new ArgumentException();
             }
 
-            var coordinates = ExctractCoordinates(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
+            var coordinateMap = ExctractCoordinates(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
 
-            //foreach (var coordinate in coordinates)
-            //{
-            //    _lights.First(light => light.Coordinate.Equals(coordinate)).TurnOn();
-            //}
-
-            Parallel.ForEach(coordinates,
-                coordinate => _lights.First(light => light.Coordinate.Equals(coordinate)).TurnOn());
+            foreach (var rowCoordinates in coordinateMap)
+            {
+                var lights = _christmasLightsMap[rowCoordinates.Key];
+                lights.Where(light => rowCoordinates.Value.Contains(light.Coordinate)).ToList().ForEach(light => light.TurnOn());
+            }
         }
 
         public void TurnOff(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
@@ -46,25 +45,29 @@ namespace TddKata.Basic.ChristmasLightsKata
                 throw new ArgumentException();
             }
 
-            var coordinates = ExctractCoordinates(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
+            var coordinateMap = ExctractCoordinates(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
 
-            foreach (var coordinate in coordinates)
+            foreach (var rowCoordinates in coordinateMap)
             {
-                _lights.First(light => light.Coordinate.Equals(coordinate)).TurnOff();
+                var lights = _christmasLightsMap[rowCoordinates.Key];
+                lights.Where(light => rowCoordinates.Value.Contains(light.Coordinate)).ToList().ForEach(light => light.TurnOff());
             }
         }
 
         public void Toggle()
         {
-            foreach (var christamLight in _lights)
+            foreach (var christamLightRow in _christmasLightsMap)
             {
-                if (christamLight.On)
+                foreach (var christamLight in christamLightRow.Value)
                 {
-                    christamLight.TurnOff();
-                }
-                else
-                {
-                    christamLight.TurnOn();
+                    if (christamLight.On)
+                    {
+                        christamLight.TurnOff();
+                    }
+                    else
+                    {
+                        christamLight.TurnOn();
+                    }
                 }
             }
         }
@@ -77,9 +80,9 @@ namespace TddKata.Basic.ChristmasLightsKata
                      Enumerable.Range(0, 1000).Contains(yCordinate2));
         }
 
-        private IEnumerable<Coordinate> ExctractCoordinates(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
+        private IDictionary<int, IList<Coordinate>> ExctractCoordinates(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
         {
-            var coordinates = new List<Coordinate>();
+            var coordinateMap = new Dictionary<int, IList<Coordinate>>();
 
             var startingXCordinate = Math.Min(xCordinate2, xCordinate1);
             var endingXCordinate = Math.Max(xCordinate2, xCordinate1) + 1;
@@ -89,13 +92,14 @@ namespace TddKata.Basic.ChristmasLightsKata
 
             for (var i = startingXCordinate; i < endingXCordinate; i++)
             {
+                coordinateMap.Add(i, new List<Coordinate>());
                 for (var j = startingYCordinate; j < endingYCordinate; j++)
                 {
-                    coordinates.Add(new Coordinate(i, j));
+                    coordinateMap[i].Add(new Coordinate(i, j));
                 }
             }
 
-            return coordinates;
+            return coordinateMap;
         }
     }
 
@@ -127,12 +131,12 @@ namespace TddKata.Basic.ChristmasLightsKata
         }
     }
 
-    public class ChristamLight
+    public class ChristmasLight
     {
         public Coordinate Coordinate { get; }
         public bool On { get; private set; }
 
-        public ChristamLight(Coordinate coordinate)
+        public ChristmasLight(Coordinate coordinate)
         {
             Coordinate = coordinate;
         }
@@ -149,7 +153,7 @@ namespace TddKata.Basic.ChristmasLightsKata
 
         public override bool Equals(object obj)
         {
-            if (!(obj is ChristamLight item))
+            if (!(obj is ChristmasLight item))
             {
                 return false;
             }

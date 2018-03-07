@@ -54,11 +54,11 @@ namespace TddKata.Basic.ChristmasLightsKata
         [InlineData(20, 10, 2, 2, 171)]
         [InlineData(13, 100, 13, 150, 51)]
         [InlineData(17, 112, 17, 112, 1)]
-        public void TurnOnShouldTurnOnLightsOnProvidedCoordinates_WhenAllLightsAreOff(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2, int expectedNumberOfLightsOn)
+        public void TurnOnShouldTurnOnLightsOnProvidedCoordinates_WhenAllLightsAreOff(int cornerAXCordinate, int cornerAYCordinate, int cornerBXCordinate, int cornerBYCordinate, int expectedNumberOfLightsOn)
         {
             var christmasLightsGrid = new ChristmasLightsGrid();
 
-            christmasLightsGrid.TurnOn(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
+            christmasLightsGrid.TurnOn(cornerAXCordinate, cornerAYCordinate, cornerBXCordinate, cornerBYCordinate);
 
             christmasLightsGrid.NumberOfLightsOn.Should().Be(expectedNumberOfLightsOn);
         }

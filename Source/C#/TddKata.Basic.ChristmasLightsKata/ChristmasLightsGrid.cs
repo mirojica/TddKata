@@ -13,7 +13,7 @@ namespace TddKata.Basic.ChristmasLightsKata
         public ChristmasLightsGrid()
         {
             _christmasLightsMap = new Dictionary<int, IList<ChristmasLight>>();
-            var coordinateMap = ExctractCoordinates(0, 0, 999, 999);
+            var coordinateMap = ExctractCoordinatesOfAllRequestedLights(0, 0, 999, 999);
 
             foreach (var rowCoordinates in coordinateMap)
             {
@@ -22,14 +22,11 @@ namespace TddKata.Basic.ChristmasLightsKata
             }
         }
 
-        public void TurnOn(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
+        public void TurnOn(int cornerAXCordinate, int cornerAYCordinate, int cornerBXCordinate, int cornerBYCordinate)
         {
-            if (CordinatesAreNotInRange(xCordinate1, yCordinate1, xCordinate2, yCordinate2))
-            {
-                throw new ArgumentException();
-            }
+            ValidateThatCordinatesAreInRange(cornerAXCordinate, cornerAYCordinate, cornerBXCordinate, cornerBYCordinate);
 
-            var coordinateMap = ExctractCoordinates(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
+            var coordinateMap = ExctractCoordinatesOfAllRequestedLights(cornerAXCordinate, cornerAYCordinate, cornerBXCordinate, cornerBYCordinate);
 
             foreach (var rowCoordinates in coordinateMap)
             {
@@ -38,14 +35,11 @@ namespace TddKata.Basic.ChristmasLightsKata
             }
         }
 
-        public void TurnOff(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
+        public void TurnOff(int cornerAXCordinate, int cornerAYCordinate, int cornerBXCordinate, int cornerBYCordinate)
         {
-            if (CordinatesAreNotInRange(xCordinate1, yCordinate1, xCordinate2, yCordinate2))
-            {
-                throw new ArgumentException();
-            }
+            ValidateThatCordinatesAreInRange(cornerAXCordinate, cornerAYCordinate, cornerBXCordinate, cornerBYCordinate);
 
-            var coordinateMap = ExctractCoordinates(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
+            var coordinateMap = ExctractCoordinatesOfAllRequestedLights(cornerAXCordinate, cornerAYCordinate, cornerBXCordinate, cornerBYCordinate);
 
             foreach (var rowCoordinates in coordinateMap)
             {
@@ -56,9 +50,9 @@ namespace TddKata.Basic.ChristmasLightsKata
 
         public void Toggle()
         {
-            foreach (var christamLightRow in _christmasLightsMap)
+            foreach (var christamLightGridRow in _christmasLightsMap)
             {
-                foreach (var christamLight in christamLightRow.Value)
+                foreach (var christamLight in christamLightGridRow.Value)
                 {
                     if (christamLight.On)
                     {
@@ -72,15 +66,18 @@ namespace TddKata.Basic.ChristmasLightsKata
             }
         }
 
-        private static bool CordinatesAreNotInRange(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
+        private static void ValidateThatCordinatesAreInRange(int cornerAXCordinate, int cornerAYCordinate, int cornerBXCordinate, int cornerBYCordinate)
         {
-            return !(Enumerable.Range(0, 1000).Contains(xCordinate1) && 
-                     Enumerable.Range(0, 1000).Contains(xCordinate2) && 
-                     Enumerable.Range(0, 1000).Contains(yCordinate1) && 
-                     Enumerable.Range(0, 1000).Contains(yCordinate2));
+            if (!(Enumerable.Range(0, 1000).Contains(cornerAXCordinate) &&
+                  Enumerable.Range(0, 1000).Contains(cornerBXCordinate) &&
+                  Enumerable.Range(0, 1000).Contains(cornerAYCordinate) &&
+                  Enumerable.Range(0, 1000).Contains(cornerBYCordinate)))
+            {
+                throw new ArgumentException();
+            }
         }
 
-        private IDictionary<int, IList<Coordinate>> ExctractCoordinates(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
+        private static IDictionary<int, IList<Coordinate>> ExctractCoordinatesOfAllRequestedLights(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2)
         {
             var coordinateMap = new Dictionary<int, IList<Coordinate>>();
 

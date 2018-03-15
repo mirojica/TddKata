@@ -52,15 +52,15 @@ namespace TddKata.Basic.ChristmasLightsKata
         {
             foreach (var christamLightGridRow in _christmasLightsMap)
             {
-                foreach (var christamLight in christamLightGridRow.Value)
+                foreach (var christmaLight in christamLightGridRow.Value)
                 {
-                    if (christamLight.On)
+                    if (christmaLight.On)
                     {
-                        christamLight.TurnOff();
+                        christmaLight.TurnOff();
                     }
                     else
                     {
-                        christamLight.TurnOn();
+                        christmaLight.TurnOn();
                     }
                 }
             }

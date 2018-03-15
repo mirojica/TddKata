@@ -9,11 +9,9 @@ namespace TddKata.Basic.ChristmasLightsKata
         [Fact]
         public void TheLightsAllStartsTurnedOff()
         {
-            var christmasLightGrid = new ChristmasLightsGrid();
+            var christmasLightsGrid = new ChristmasLightsGrid();
 
-            var actualLightsOnNumber = christmasLightGrid.NumberOfLightsOn;
-
-            actualLightsOnNumber.Should().Be(0);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(0);
         }
 
         [Fact]
@@ -23,8 +21,7 @@ namespace TddKata.Basic.ChristmasLightsKata
 
             christmasLightsGrid.Toggle();
 
-            var actualLightsOnNumber = christmasLightsGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(1000000);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(1000000);
         }
 
         [Fact]
@@ -57,76 +54,94 @@ namespace TddKata.Basic.ChristmasLightsKata
         [InlineData(20, 10, 2, 2, 171)]
         [InlineData(13, 100, 13, 150, 51)]
         [InlineData(17, 112, 17, 112, 1)]
-        public void TurnOnShouldTurnOnLightsOnProvidedCoordinates_WhenAllLightsAreOff(int xCordinate1, int yCordinate1, int xCordinate2, int yCordinate2, int expectedNumberOfLightsOn)
+        public void TurnOnShouldTurnOnLightsOnProvidedCoordinates_WhenAllLightsAreOff(int cornerAXCordinate, int cornerAYCordinate, int cornerBXCordinate, int cornerBYCordinate, int expectedNumberOfLightsOn)
         {
             var christmasLightsGrid = new ChristmasLightsGrid();
 
-            christmasLightsGrid.TurnOn(xCordinate1, yCordinate1, xCordinate2, yCordinate2);
+            christmasLightsGrid.TurnOn(cornerAXCordinate, cornerAYCordinate, cornerBXCordinate, cornerBYCordinate);
 
-            var actualLightsOnNumber = christmasLightsGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(expectedNumberOfLightsOn);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(expectedNumberOfLightsOn);
         }
 
         [Fact]
         public void TurnOnShouldTurnOnLightsOnProvidedCoordinates_WhenThereIsAlreadyTurnedOnLightsAndAreNotIntersected()
         {
-            var christmasLightGrid = new ChristmasLightsGrid();
-            christmasLightGrid.TurnOn(0, 0, 2, 2);
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(0, 0, 2, 2);
 
-            christmasLightGrid.TurnOn(4, 4, 6, 6);
+            christmasLightsGrid.TurnOn(4, 4, 6, 6);
 
-            var actualLightsOnNumber = christmasLightGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(18);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(18);
         }
 
         [Fact]
         public void TurnOnShouldTurnOnLightsOnProvidedCoordinates_WhenThereIsAlreadyTurnedOnLightsAndAreIntersected()
         {
-            var christmasLightGrid = new ChristmasLightsGrid();
-            christmasLightGrid.TurnOn(7, 14, 3, 12);
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(7, 14, 3, 12);
 
-            christmasLightGrid.TurnOn(4, 10, 8, 13);
+            christmasLightsGrid.TurnOn(4, 10, 8, 13);
 
-            var actualLightsOnNumber = christmasLightGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(27);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(27);
         }
 
         [Fact]
         public void TurnOffShouldTurnOffLightsOnProvidedCoordinates_WhenAllLightsAreOn()
         {
-            var christmasLightGrid = new ChristmasLightsGrid();
-            christmasLightGrid.TurnOn(0, 0, 999, 999);
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(0, 0, 999, 999);
 
-            christmasLightGrid.TurnOff(0, 0, 2, 2);
+            christmasLightsGrid.TurnOff(0, 0, 2, 2);
 
-            var actualLightsOnNumber = christmasLightGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(999991);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(999991);
         }
 
         [Fact]
         public void TurnOffShouldTurnOffLightsOnProvidedCordinates_WhenThereIsAlreadyTurnedOffLightsAndAreNotIntersected()
         {
-            var christmasLightGrid = new ChristmasLightsGrid();
-            christmasLightGrid.TurnOn(0, 0, 999, 999);
-            christmasLightGrid.TurnOff(0, 0, 2, 2);
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(0, 0, 999, 999);
+            christmasLightsGrid.TurnOff(0, 0, 2, 2);
 
-            christmasLightGrid.TurnOff(4, 4, 6, 6);
+            christmasLightsGrid.TurnOff(4, 4, 6, 6);
 
-            var actualLightsOnNumber = christmasLightGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(999982);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(999982);
         }
 
         [Fact]
         public void TurnOffShouldTurnOffLightsOnProvidedCordinates_WhenTherreIsAlreadyTurnedOffLightsAndAreIntersected()
         {
-            var christmasLightGrid = new ChristmasLightsGrid();
-            christmasLightGrid.TurnOn(0, 0, 999, 999);
-            christmasLightGrid.TurnOff(3, 3, 5, 5);
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(0, 0, 999, 999);
+            christmasLightsGrid.TurnOff(3, 3, 5, 5);
 
-            christmasLightGrid.TurnOff(4, 4, 6, 6);
+            christmasLightsGrid.TurnOff(4, 4, 6, 6);
 
-            var actualLightsOnNumber = christmasLightGrid.NumberOfLightsOn;
-            actualLightsOnNumber.Should().Be(999986);
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(999986);
+        }
+
+        [Fact]
+        public void ToggleShouldTurnOffAllOnLights_And_TurnOnAllOffLights()
+        {
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(1, 1, 16, 16);
+            christmasLightsGrid.TurnOff(4, 8, 6, 10);
+
+            christmasLightsGrid.Toggle();
+
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(999753);
+        }
+
+        [Fact]
+        public void TurnOnShouldTurnOnLights_AfterToggle()
+        {
+            var christmasLightsGrid = new ChristmasLightsGrid();
+            christmasLightsGrid.TurnOn(0, 0, 998, 998);
+            christmasLightsGrid.Toggle();
+
+            christmasLightsGrid.TurnOn(1, 1, 16, 16);
+
+            christmasLightsGrid.NumberOfLightsOn.Should().Be(2255);
         }
     }
 }

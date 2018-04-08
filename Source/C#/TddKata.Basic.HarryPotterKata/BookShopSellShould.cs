@@ -42,6 +42,7 @@ namespace TddKata.Basic.HarryPotterKata
         [Theory]
         [InlineData(23.2, "first book", "second book", "first book")]
         [InlineData(44.8, "first book", "second book", "first book", "second book", "first book", "third book")]
+        [InlineData(51.6, "first book", "second book", "third book", "first book", "second book", "third book", "fourth book", "fifth book")]
         public void CalculatePriceWithApropriateDiscount_WhenBooksAreMixed(decimal expectedPrice, params string[] books)
         {
             var bookShop = new BookShop();
